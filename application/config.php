@@ -17,9 +17,9 @@ return [
     // +----------------------------------------------------------------------
 
     // 应用域名
-    'app_base_url'          => Env::get('app_debug') ? ('http://172.18.28.82:8080/'):('https://wind.slogger.cn/'),
+    'app_base_url'          => Env::get('app_debug') ? ('http://172.18.28.82:8080/'):('http://slogger.cn/'),
     // 应用调试模式
-    'app_debug'              => true,
+    'app_debug'              => false,
     // 应用Trace
     'app_trace'              => false,
     // 应用模式状态
