@@ -17,7 +17,7 @@ return [
     // +----------------------------------------------------------------------
 
     // 应用域名
-    'app_base_url'          => Env::get('app_debug') ? ('http://49.233.202.163/'):('http://49.233.202.163/'),
+    'app_base_url'          => Env::get('app_debug') ? ('http://49.233.202.163:84/'):('http://49.233.202.163:84/'),
     // 应用调试模式
     'app_debug'              => true,
     // 应用Trace
@@ -81,7 +81,7 @@ return [
     // PATHINFO变量名 用于兼容模式
     'var_pathinfo'           => 's',
     // 兼容PATH_INFO获取
-    'pathinfo_fetch'         => ['ORIG_PATH_INFO', 'REDIRECT_PATH_INFO', 'REDIRECT_URL'],
+    'pathinfo_fetch'         => ['ORIG_PATH_INFO', 'REDIRECT_PATH_INFO', 'REDIRECT_URL', 'REQUEST_URI'],
     // pathinfo分隔符
     'pathinfo_depr'          => '/',
     // URL伪静态后缀
