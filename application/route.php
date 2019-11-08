@@ -21,6 +21,6 @@ return [
 ];
 
 Route::post('login/:login','news/api/login')
-    ->header('Access-Control-Allow-Origin','http://wind.slogger.cn')
+    ->header('Access-Control-Allow-Origin','http://slogger.cn')
     ->header('Access-Control-Allow-Credentials', 'true')
     ->allowCrossDomain(true);

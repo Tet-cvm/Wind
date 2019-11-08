@@ -7,4 +7,9 @@ class Index
     {
         return 'index';
     }
+
+    public function hello()
+    {
+        return 'hello';
+    }
 }
