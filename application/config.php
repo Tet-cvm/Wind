@@ -17,9 +17,9 @@ return [
     // +----------------------------------------------------------------------
 
     // 应用域名
-    'app_base_url'          => Env::get('app_debug') ? ('http://172.18.28.82:8080/'):('http://49.233.202.163/'),
+    'app_base_url'          => Env::get('app_debug') ? ('http://49.233.202.163/'):('http://49.233.202.163/'),
     // 应用调试模式
-    'app_debug'              => false,
+    'app_debug'              => true,
     // 应用Trace
     'app_trace'              => false,
     // 应用模式状态
