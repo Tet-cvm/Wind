@@ -12,4 +12,9 @@ class Index
     {
         return 'hello';
     }
+
+    public function aaa()
+    {
+        return 'aaa';
+    }
 }
