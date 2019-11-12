@@ -8,9 +8,9 @@ class Index
         return 'index';
     }
 
-    public function hello()
+    public function world()
     {
-        return 'hello';
+        return 'world';
     }
 
     public function aaa()
