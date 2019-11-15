@@ -24,7 +24,7 @@ class Manage extends Model
             $return[$key]['role'] = $row['role'];
             $return[$key]['name'] = $row['name'];
             $return[$key]['time'] = date('Y-m-d', $row['time']);
-            $return[$key]['icon'] = (Config::get('app_base_url') . 'uploads/' . $row['icon']);
+            $return[$key]['icon'] = (Config::get('app_base_url') . 'manage/' . $row['icon']);
             $return[$key]['img'] = $row['icon'];
         }
         return json_encode($return);
@@ -34,7 +34,7 @@ class Manage extends Model
     {
         $files = request()->file('image');
         foreach($files as $file) {
-            $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads');
+            $info = $file->move(ROOT_PATH . 'public' . DS . 'manage');
             if($info){
                 return json_encode($info->getSaveName());
             }else{
@@ -83,7 +83,7 @@ class Manage extends Model
                         $_add[$key]['role'] = $row['role'];
                         $_add[$key]['name'] = $row['name'];
                         $_add[$key]['time'] = date('Y-m-d', $row['time']);
-                        $_add[$key]['icon'] = (Config::get('app_base_url') . 'uploads/' . $row['icon']);
+                        $_add[$key]['icon'] = (Config::get('app_base_url') . 'manage/' . $row['icon']);
                         $_add[$key]['img'] = $row['icon'];
                     }
     
@@ -149,7 +149,7 @@ class Manage extends Model
                             $_edit[$key]['role'] = $row['role'];
                             $_edit[$key]['name'] = $row['name'];
                             $_edit[$key]['time'] = date('Y-m-d', $row['time']);
-                            $_edit[$key]['icon'] = (Config::get('app_base_url') . 'uploads/' . $row['icon']);
+                            $_edit[$key]['icon'] = (Config::get('app_base_url') . 'manage/' . $row['icon']);
                             $_edit[$key]['img'] = $row['icon'];
                         }
 
