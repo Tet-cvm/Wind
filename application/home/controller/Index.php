@@ -1,11 +1,13 @@
 <?php
 namespace app\home\controller;
+use think\Db;
 
 class Index
 {
     public function index()
     {
-        return 'index';
+        $data = Db::name('user')->select();
+        var_dump($data);
     }
 
     public function world()
