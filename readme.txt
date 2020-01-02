@@ -1,4 +1,6 @@
-wind.slogger.cn
+测试: dev.wind.slogger.cn
+
+正式: wind.slogger.cn
 
 
 数据库: movie
@@ -27,4 +29,11 @@ wind.slogger.cn
        icon     -会员头像
        level    -会员等级
        time     -注册时间
+
+上报-表(movie_report): id-int
+       id       -id(int)
+       sceneid  -场景id(varchar 20)
+       userid   -用户id(varchar 20)
+       acttype  -行为id(varchar 20)
+       time     -时间id(int 100)
 
