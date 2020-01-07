@@ -264,7 +264,6 @@ class Home
                         $item = $row['item'];
                         $find = Db::name('item')->where("id='$item'")->field('id, name, poster')->find();
                         $find['time'] = date('m-d h:m', $row['time']);
-                        $find['id'] = $row['id'];
                         $result[$key] = $find;
                     }
         

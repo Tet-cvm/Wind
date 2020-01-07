@@ -16,18 +16,22 @@ class Manage extends Model
 
     public function list()
     {
-        $data = Db::name('user')->field('password', true)->select();
-        $return = array();
-        foreach($data as $key => $row) {
-            $return[$key]['id'] = $row['id'];
-            $return[$key]['unionid'] = $row['unionid'];
-            $return[$key]['role'] = $row['role'];
-            $return[$key]['name'] = $row['name'];
-            $return[$key]['time'] = date('Y-m-d', $row['time']);
-            $return[$key]['icon'] = (Config::get('app_base_url') . 'manage/' . $row['icon']);
-            $return[$key]['img'] = $row['icon'];
+        $request = Request::instance();
+        $method  = $request->method();
+        if ($method == 'POST') {
+            $data = Db::name('user')->field('password', true)->select();
+            $return = array();
+            foreach($data as $key => $row) {
+                $return[$key]['id'] = $row['id'];
+                $return[$key]['unionid'] = $row['unionid'];
+                $return[$key]['role'] = $row['role'];
+                $return[$key]['name'] = $row['name'];
+                $return[$key]['time'] = date('Y-m-d', $row['time']);
+                $return[$key]['icon'] = (Config::get('app_base_url') . 'manage/' . $row['icon']);
+                $return[$key]['img'] = $row['icon'];
+            }
+            return json_encode($return);
         }
-        return json_encode($return);
     }
 
     public function upload()
@@ -55,6 +59,57 @@ class Manage extends Model
         }
         return $unionid . $str;
     }
+
+
+    // public function admin()
+    // {
+    //     $name = 'admin';
+    //     if (!Db::name('user')->where("name='$name'")->value('name')) {
+    //         $union = action('Manage/union');
+    //         $data = [
+    //             'unionid' => $union,
+    //             // 'icon' => $param['img'],
+    //             'role' => 0,
+    //             'name' => 'admin',
+    //             'password'  => password_hash(123456, 1),
+    //             'time' => time()
+    //         ];
+
+    //         if (Db::name('user')->insert($data)) {
+    //             $add = Db::name('user')->where("unionid='$union'")->field('password', true)->select();
+    //             $_add = array();
+    //             foreach($add as $key => $row) {
+    //                 $_add[$key]['id'] = $row['id'];
+    //                 $_add[$key]['unionid'] = $row['unionid'];
+    //                 $_add[$key]['role'] = $row['role'];
+    //                 $_add[$key]['name'] = $row['name'];
+    //                 $_add[$key]['time'] = date('Y-m-d', $row['time']);
+    //                 $_add[$key]['icon'] = (Config::get('app_base_url') . 'manage/' . $row['icon']);
+    //                 $_add[$key]['img'] = $row['icon'];
+    //             }
+
+    //             $return = array(
+    //                 'status'  => true,
+    //                 'message' => '新增用户成功~',
+    //                 'data' => $_add
+    //             );
+    //             return json_encode($return);
+    //         } else {
+    //             $return = array(
+    //                 'status'  => false,
+    //                 'message' => '数据错误~'
+    //             );
+    //             return json_encode($return);
+    //         }
+    //     } else {
+    //         $return = array(
+    //             'status'  => false,
+    //             'message' => '用户已存在~'
+    //         );
+    //         return json_encode($return);
+    //     }
+    // }
+
 
     public function add()
     {

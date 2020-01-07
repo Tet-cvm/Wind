@@ -15,22 +15,28 @@ class Movie extends Model
 
     public function list()
     {
-        $data = Db::name('item')->select();
-        $return = array();
-        foreach($data as $key => $row) {
-            $series = explode('|', $row['series']);
-            $return[$key]['id'] = $row['id'];
-            $return[$key]['name'] = $row['name'];
-            $return[$key]['poster'] = $row['poster'];
-            $return[$key]['img'] = (Config::get('app_base_url') . 'movie/' . $row['poster']);
-            $return[$key]['domains'] = json_decode($row['uri'], true);
-            $return[$key]['series'] = $series;
-            $return[$key]['describe'] = $row['describe'];
-            $return[$key]['star'] = $row['star'];
-            $return[$key]['score'] = $row['score'];
-            $return[$key]['time'] = date('Y-m-d', $row['time']);
+        $request = Request::instance();
+        $method  = $request->method();
+        if ($method == 'POST') {
+            $data = Db::name('item')->select();
+            $return = array();
+            foreach($data as $key => $row) {
+                $series = explode('|', $row['series']);
+                $return[$key]['id'] = $row['id'];
+                $return[$key]['name'] = $row['name'];
+                $return[$key]['poster'] = $row['poster'];
+                $return[$key]['img'] = (Config::get('app_base_url') . 'movie/' . $row['poster']);
+                $return[$key]['domains'] = json_decode($row['uri'], true);
+                $return[$key]['series'] = $series;
+                $return[$key]['describe'] = $row['describe'];
+                $return[$key]['star'] = $row['star'];
+                $return[$key]['score'] = $row['score'];
+                $return[$key]['time'] = date('Y-m-d', $row['time']);
+            }
+            return json_encode($return);
+        } else {
+            return false;
         }
-        return json_encode($return);
     }
 
     public function search()

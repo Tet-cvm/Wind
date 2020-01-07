@@ -14,14 +14,38 @@ class Popup
         return 'index';
     }
 
+    /*
+    $bezel  弹窗广告
+    $starry 大图广告
+    $chasm  底部广告
+    */
     public function dialog()
     {
+        $bezel = array(
+            'status' => true,
+            'app'    => 'aaa://',
+            'circle' => '#ce3030',
+            'image'  => 'https://mdqygl.cn/Test/Logo.png'
+        );
+
+        $starry = array(
+            'status' => true,
+            'image'  => 'https://mdqygl.cn/Test/Logo.png',
+            'url'    => 'http://slogger.cn/cc.html'
+        );
+
+        $chasm = array (
+            'status' => true,
+            'image'  => 'https://mdqygl.cn/Test/Logo.png',
+            'url'    => 'http://slogger.cn/aa.html'
+        );
+
+
         $return = array(
             'status'  => true,
-            'popup'   => true,
-            'app'     => 'aaa://',
-            'circle'  => '#ce3030',
-            'ikon'    => 'https://mdqygl.cn/Test/Logo.png'
+            'bezel'   => $bezel,
+            'starry'  => $starry,
+            'chasm'   => $chasm
         );
         return json_encode($return);
     }
