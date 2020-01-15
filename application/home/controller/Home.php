@@ -68,22 +68,24 @@ class Home
             $return = array();
             foreach($data as $key => $row) {
                 $series = explode('|', $row['series']);
-                $return[$key]['id'] = $row['id'];
-                $return[$key]['collect'] = $collect;
-                $return[$key]['name'] = $row['name'];
-                $return[$key]['poster'] = (Config::get('app_base_url') . 'movie/' . $row['poster']);
-                $return[$key]['domains'] = json_decode($row['uri'], true);
-                $return[$key]['series'] = $series;
-                $return[$key]['describe'] = $row['describe'];
-                $return[$key]['star'] = $row['star'];
-                $return[$key]['score'] = $row['score'];
-                $return[$key]['time'] = date('Y-m-d', $row['time']);
+                $return['id'] = $row['id'];
+                $return['collect'] = $collect;
+                $return['name'] = $row['name'];
+                $return['poster'] = (Config::get('app_base_url') . 'movie/' . $row['poster']);
+                $return['series'] = $series;
+                $return['describe'] = $row['describe'];
+                $return['star'] = $row['star'];
+                $return['score'] = $row['score'];
+                $return['time'] = date('Y-m-d', $row['time']);
             }
+
+            $source = Db::name('source')->where("itemid='$id'")->select();
+            $return['domains'] = $source;
 
             $_return = array(
                 'status'  => true,
                 'login'   => $login,
-                'data'    => $return[0],
+                'data'    => $return,
             );
             return json_encode($_return);
         } else {

@@ -61,54 +61,54 @@ class Manage extends Model
     }
 
 
-    // public function admin()
-    // {
-    //     $name = 'admin';
-    //     if (!Db::name('user')->where("name='$name'")->value('name')) {
-    //         $union = action('Manage/union');
-    //         $data = [
-    //             'unionid' => $union,
-    //             // 'icon' => $param['img'],
-    //             'role' => 0,
-    //             'name' => 'admin',
-    //             'password'  => password_hash(123456, 1),
-    //             'time' => time()
-    //         ];
+    public function admin()
+    {
+        $name = 'admin';
+        if (!Db::name('user')->where("name='$name'")->value('name')) {
+            $union = action('Manage/union');
+            $data = [
+                'unionid' => $union,
+                // 'icon' => $param['img'],
+                'role' => 0,
+                'name' => 'admin',
+                'password'  => password_hash(123456, 1),
+                'time' => time()
+            ];
 
-    //         if (Db::name('user')->insert($data)) {
-    //             $add = Db::name('user')->where("unionid='$union'")->field('password', true)->select();
-    //             $_add = array();
-    //             foreach($add as $key => $row) {
-    //                 $_add[$key]['id'] = $row['id'];
-    //                 $_add[$key]['unionid'] = $row['unionid'];
-    //                 $_add[$key]['role'] = $row['role'];
-    //                 $_add[$key]['name'] = $row['name'];
-    //                 $_add[$key]['time'] = date('Y-m-d', $row['time']);
-    //                 $_add[$key]['icon'] = (Config::get('app_base_url') . 'manage/' . $row['icon']);
-    //                 $_add[$key]['img'] = $row['icon'];
-    //             }
+            if (Db::name('user')->insert($data)) {
+                $add = Db::name('user')->where("unionid='$union'")->field('password', true)->select();
+                $_add = array();
+                foreach($add as $key => $row) {
+                    $_add[$key]['id'] = $row['id'];
+                    $_add[$key]['unionid'] = $row['unionid'];
+                    $_add[$key]['role'] = $row['role'];
+                    $_add[$key]['name'] = $row['name'];
+                    $_add[$key]['time'] = date('Y-m-d', $row['time']);
+                    $_add[$key]['icon'] = (Config::get('app_base_url') . 'manage/' . $row['icon']);
+                    $_add[$key]['img'] = $row['icon'];
+                }
 
-    //             $return = array(
-    //                 'status'  => true,
-    //                 'message' => '新增用户成功~',
-    //                 'data' => $_add
-    //             );
-    //             return json_encode($return);
-    //         } else {
-    //             $return = array(
-    //                 'status'  => false,
-    //                 'message' => '数据错误~'
-    //             );
-    //             return json_encode($return);
-    //         }
-    //     } else {
-    //         $return = array(
-    //             'status'  => false,
-    //             'message' => '用户已存在~'
-    //         );
-    //         return json_encode($return);
-    //     }
-    // }
+                $return = array(
+                    'status'  => true,
+                    'message' => '新增用户成功~',
+                    'data' => $_add
+                );
+                return json_encode($return);
+            } else {
+                $return = array(
+                    'status'  => false,
+                    'message' => '数据错误~'
+                );
+                return json_encode($return);
+            }
+        } else {
+            $return = array(
+                'status'  => false,
+                'message' => '用户已存在~'
+            );
+            return json_encode($return);
+        }
+    }
 
 
     public function add()

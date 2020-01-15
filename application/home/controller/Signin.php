@@ -43,34 +43,42 @@ class Signin extends Model
             $password = $param['password'];
 
             if (!Db::name('member')->where("uniqueid='$uniqueid'")->value("uniqueid")) { // 设备未注册
-                $union = action('Signin/union');
-                $data = [
-                    'unionid'  => $union,
-                    'brand'    => $brand,
-                    'system'   => $system,
-                    'uniqueid' => $uniqueid,
-                    'account'  => $account,
-                    'password' => password_hash($password, 1),
-                    'icon'     => '',
-                    'level'    => 1,
-                    'time'     => time()
-                ];
-
-                if (Db::name('member')->insert($data)) {
-                    $key = Db::name('member')->where("account='$account'")->value('unionid');
-                    $encode = action('Common/authcode', [$key, 'ENCODE']);
+                if (Db::name('member')->where("account='$account'")->value("account")) { // 账户已存在
                     $return = array(
-                        'status'  => true,
-                        'key'     => $encode,
-                        'message' => '注册成功~'
+                        'status'  => false,
+                        'message' => '账号已被注册~'
                     );
                     return json_encode($return);
                 } else {
-                    $return = array(
-                        'status'  => false,
-                        'message' => '数据错误~'
-                    );
-                    return json_encode($return);
+                    $union = action('Signin/union');
+                    $data = [
+                        'unionid'  => $union,
+                        'brand'    => $brand,
+                        'system'   => $system,
+                        'uniqueid' => $uniqueid,
+                        'account'  => $account,
+                        'password' => password_hash($password, 1),
+                        'icon'     => '',
+                        'level'    => 1,
+                        'time'     => time()
+                    ];
+    
+                    if (Db::name('member')->insert($data)) {
+                        $key = Db::name('member')->where("account='$account'")->value('unionid');
+                        $encode = action('Common/authcode', [$key, 'ENCODE']);
+                        $return = array(
+                            'status'  => true,
+                            'key'     => $encode,
+                            'message' => '注册成功~'
+                        );
+                        return json_encode($return);
+                    } else {
+                        $return = array(
+                            'status'  => false,
+                            'message' => '数据错误~'
+                        );
+                        return json_encode($return);
+                    }
                 }
             } else { // 设备注册过
                 if (Db::name('member')->where("account='$account'")->value("account")) { // 账号存在
@@ -113,7 +121,7 @@ class Signin extends Model
             $param = $request->param();
             $uniqueid = $param['uniqueid'];
             if (Db::name('member')->where("uniqueid='$uniqueid'")->value("uniqueid")) { // 设备已注册
-                $user = Db::name('member')->where("uniqueid='$uniqueid'")->field('nick, icon, level, sex, signature')->select();
+                $user = Db::name('member')->where("uniqueid='$uniqueid'")->field('unionid, nick, icon, level, sex, signature')->select();
                 $_user = $user[0];
 
                 // 默认头像
@@ -137,8 +145,11 @@ class Signin extends Model
                     $_user['signature'] = '这家伙很懒。';
                 }
 
+                $encode = action('Common/authcode', [$_user['unionid'], 'ENCODE']);
+
                 $return = array(
                     'status'  => true,
+                    'key'     => $encode,
                     'data'    => $_user,
                 );
                 return json_encode($return);
@@ -167,7 +178,17 @@ class Signin extends Model
         $data = [
             'icon' => $icon,
         ];
-        Db::name('member')->where("uniqueid='$uniqueid'")->update($data);
+        if (Db::name('member')->where("uniqueid='$uniqueid'")->update($data)) {
+            $return = array(
+                'status'  => true,
+            );
+            return json_encode($return);
+        } else {
+            $return = array(
+                'status'  => false,
+            );
+            return json_encode($return);
+        }
     }
 
     public function modify()

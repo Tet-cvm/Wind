@@ -12,14 +12,18 @@
         icon     -用户头像(varchar 10)
         role     -用户权限
 
-电影-表(movie_item): id -int
+电影-表(movie_item): id -int (主表-a)
         name       -电影名称(varchar 20)
         poster     -海报(varchar 100)
-        uri        -播放地址(varchar 200)
         series     -剧集(varchar 20)
         describe   -详情(varchar 200)
         star       -主演(varchar 100)
         score      -评分(varchar 10)
+
+电影-表(movie_source): id -int (从表-a)
+        itemid     -电影id(int 11)
+        gather     -集数(int 11)
+        uri        -播放地址(varchar 200)
 
 会员-表(movie_member): id-int
        id       -id(int)
